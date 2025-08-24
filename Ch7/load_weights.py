@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from model import GPTModel
+from gpt_model import GPTModel
 
 # utility to check if 2 tensors have same shape
 def assign(left, right):
