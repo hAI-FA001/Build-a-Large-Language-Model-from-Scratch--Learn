@@ -13,3 +13,4 @@ wheels/
 **/sms_spam_collection/*
 *.zip
 *.csv
+*.json
