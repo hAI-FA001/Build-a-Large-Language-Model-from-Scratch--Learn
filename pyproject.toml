@@ -5,6 +5,7 @@ description = "Building LLMs from Scratch (code based on the book)"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "sentencepiece>=0.2.1",
     "tensorflow>=2.15.0",
     "torch>=2.8.0",
     "tqdm>=4.66",
