@@ -41,10 +41,10 @@ class FeedForward_SwiGLU(nn.Module):
         x = self.silu(x_fc1) * x_fc2
         return self.fc3(x)
 
-def precompute_rope_params(head_dim, theta_base=10_000, context_len=4096, freq_config=None):
+def precompute_rope_params(head_dim, theta_base=10_000, context_len=4096, freq_config=None, dtype=None):
     assert head_dim % 2 == 0, 'Head dim must be even'
 
-    p = torch.arange(0, head_dim, 2)
+    p = torch.arange(0, head_dim, 2, dtype=dtype)
     p = p[:head_dim//2].float()
     p = p / head_dim
     inv_freq = 1.0 / theta_base**p
@@ -73,7 +73,7 @@ def precompute_rope_params(head_dim, theta_base=10_000, context_len=4096, freq_c
         inv_freq_llama = torch.where(is_med_freq, smoothed_inv_freq, inv_freq_llama)
         inv_freq = inv_freq_llama
     
-    positions = torch.arange(context_len)
+    positions = torch.arange(context_len, dtype=dtype)
     angles = positions[:,None] * inv_freq[None,:]
     angles = torch.cat([angles, angles], dim=1)
 
